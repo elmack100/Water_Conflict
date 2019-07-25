@@ -1,0 +1,38 @@
+---
+title: "E2_Presentation"
+author: "Erin and Elizabeth"
+date: "7/25/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Pursuit: A socio-environmental synthesis of the linkages between water scarcity induced conflict and land use/land cover change in Africa to enhance multi-scalar decision making
+
+Dataset: Armed Conflict Location & Event Data Project (ACLED)
+Purpose: collection, analysis and mapping of political violence and protest
+Geographies: 
+-Africa
+-South Asia
+-South East Asia
+-the Middle East
+-Europe
+-Latin America
+
+
+```{r}
+summary(conflict$event_type)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r conflict, echo=FALSE}
+plot()
+```
+
