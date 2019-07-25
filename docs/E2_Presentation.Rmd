@@ -1,6 +1,6 @@
 ---
-title: "E2_Presentation"
-author: "Erin and Elizabeth"
+title: "Water and Conflict in Africa"
+author: "Erin Bunting and Elizabeth Mack"
 date: "7/25/2019"
 output: html_document
 ---
@@ -21,33 +21,61 @@ conflict<-rbind(ACLED_Northern, ACLED_Eastern, ACLED_Central, ACLED_Western, ACL
 
 ```
 
-
-## R Markdown
-
-Pursuit: A socio-environmental synthesis of the linkages between water scarcity induced conflict and land use/land cover change in Africa to enhance multi-scalar decision making
+Full Name of Pursuit: A socio-environmental synthesis of the linkages between water scarcity induced conflict and land use/land cover change in Africa to enhance multi-scalar decision making
 
 Dataset: Armed Conflict Location & Event Data Project (ACLED)
+
 Purpose: collection, analysis and mapping of political violence and protest
+
 Geographies: 
--Africa
--South Asia
--South East Asia
--the Middle East
--Europe
--Latin America
+- Africa
+- South Asia
+- South East Asia
+- Middle East
+- Europe
+- Latin America
 
 
 ```{r}
 summary(conflict$event_type)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+Below is a histogram of the number of conflicts by year:
 
 ```{r conflict, echo=FALSE}
 ggplot(conflict, aes(x = year)) +
-  geom_histogram(bins=19)
+  geom_histogram(bins=19)+
+  ggtitle("Breakdown of Conflicts by Year") +
+  xlab("Year")+ylab("Number of Conflicts")
 
 ```
 
+Now let's take a look at the types of conflict in the dataset:
+
+```{r echo=FALSE}
+ggplot(conflict, aes(x=factor(event_type)))+
+  geom_bar(stat="count", width=0.7, fill="forest green")+
+  ggtitle("Types of Conflict") +
+  ylab("Number of Conflicts")+
+  theme_minimal()
+```
+
+```{r echo=FALSE}
+ggplot(conflict, aes(x=factor(event_type)))+
+  geom_bar(stat="count", width=0.7, fill="black")+
+  theme(axis.text.x=element_text(angle=90, vjust=0.5,size=10))+
+  ggtitle("Type of Conflict by Region") +
+  xlab("Type of Conflict")+ylab("Number of Conflicts")+
+  facet_grid("region")+
+  scale_x_discrete(breaks=c("Battles","Explosions/Remote violence", "Protests",
+             "Riots","Strategic developments","Violence against civilians"),
+              labels=c("Battles", "Explosions/\nRemote violence", "Protests",
+              "Riots","Strategic\ndevelopments","Violence\nagainst\ncivilians"))
+```
+
+```{r echo=FALSE}
+ggplot(conflict, aes(x =year, y=fatalities, color=region)) +
+  geom_point()+
+facet_grid("region")
+```
