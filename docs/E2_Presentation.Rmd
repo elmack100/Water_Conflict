@@ -7,7 +7,20 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
+```{r, include=FALSE}
+setwd("/nfs/waterconflictafrica-data/Institute2019/Data/")
+ACLED_Northern<-read.csv("ACLED9719_Northern_Africa.csv")
+ACLED_Eastern<-read.csv("ACLED9719_Eastern_Africa.csv")
+ACLED_Central<-read.csv("ACLED9719_Middle_Africa.csv")
+ACLED_Western<-read.csv("ACLED9719_Western_Africa.csv")
+ACLED_Southern<-read.csv("ACLED9719_Southern_Africa.csv")
+
+conflict<-rbind(ACLED_Northern, ACLED_Eastern, ACLED_Central, ACLED_Western, ACLED_Southern)
+
+```
+
 
 ## R Markdown
 
@@ -33,6 +46,8 @@ summary(conflict$event_type)
 You can also embed plots, for example:
 
 ```{r conflict, echo=FALSE}
-plot()
+ggplot(conflict, aes(x = year)) +
+  geom_histogram(bins=19)
+
 ```
 
