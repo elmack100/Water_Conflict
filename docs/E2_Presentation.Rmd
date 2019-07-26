@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 ```
-```{r, include=FALSE}
+```{r, include=FALSE, cache=TRUE}
 setwd("/nfs/waterconflictafrica-data/Institute2019/Data/")
 ACLED_Northern<-read.csv("ACLED9719_Northern_Africa.csv")
 ACLED_Eastern<-read.csv("ACLED9719_Eastern_Africa.csv")
@@ -28,6 +28,7 @@ Dataset: Armed Conflict Location & Event Data Project (ACLED)
 Purpose: collection, analysis and mapping of political violence and protest
 
 Geographies: 
+
 - Africa
 - South Asia
 - South East Asia
@@ -43,7 +44,7 @@ summary(conflict$event_type)
 
 Below is a histogram of the number of conflicts by year:
 
-```{r conflict, echo=FALSE}
+```{r conflict, echo=FALSE, cache=TRUE}
 ggplot(conflict, aes(x = year)) +
   geom_histogram(bins=19)+
   ggtitle("Breakdown of Conflicts by Year") +
@@ -53,15 +54,19 @@ ggplot(conflict, aes(x = year)) +
 
 Now let's take a look at the types of conflict in the dataset:
 
-```{r echo=FALSE}
+```{r echo=FALSE, cache=TRUE}
 ggplot(conflict, aes(x=factor(event_type)))+
   geom_bar(stat="count", width=0.7, fill="forest green")+
   ggtitle("Types of Conflict") +
   ylab("Number of Conflicts")+
+  scale_x_discrete(breaks=c("Battles","Explosions/Remote violence", "Protests",
+             "Riots","Strategic developments","Violence against civilians"),
+              labels=c("Battles", "Explosions/\nRemote violence", "Protests",
+              "Riots","Strategic\ndevelopments","Violence\nagainst\ncivilians")) +
   theme_minimal()
 ```
 
-```{r echo=FALSE}
+```{r echo=FALSE,eval=FALSE}
 ggplot(conflict, aes(x=factor(event_type)))+
   geom_bar(stat="count", width=0.7, fill="black")+
   theme(axis.text.x=element_text(angle=90, vjust=0.5,size=10))+
@@ -73,9 +78,14 @@ ggplot(conflict, aes(x=factor(event_type)))+
               labels=c("Battles", "Explosions/\nRemote violence", "Protests",
               "Riots","Strategic\ndevelopments","Violence\nagainst\ncivilians"))
 ```
+![](conflict_byregion.png)
 
-```{r echo=FALSE}
+```{r echo=FALSE, cache=TRUE}
 ggplot(conflict, aes(x =year, y=fatalities, color=region)) +
   geom_point()+
 facet_grid("region")
 ```
+
+https://rstudio.sesync.org/files/Water_Conflict/final_HotspotMap.html
+
+![](AllEvent_diffStat_region.png)
